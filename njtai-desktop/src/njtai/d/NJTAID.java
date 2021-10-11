@@ -1,23 +1,66 @@
 package njtai.d;
 
-public class NJTAID {
-	public static void main(String[] args) {
-		//TODO launch the app
+import java.awt.EventQueue;
+
+import njtai.IPlatform;
+import njtai.d.ui.MainFrm;
+
+public class NJTAID implements IPlatform, Runnable {
+	
+	public static NJTAID inst;
+	protected MainFrm frame;
+	
+	private NJTAID() {
+	}
+
+	public static void start() {
+		inst = new NJTAID();
+		inst.run();
+	}
+	
+	public void run() {
+		try {
+			EventQueue.invokeAndWait(new Runnable() {
+				public void run() {
+					try {
+						frame = new MainFrm();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void refreshItems() {
+		
+	}
+
+	public void showAboutFrm() {
+		
+	}
+
+	public void showSettingsFrm() {
+		
 	}
 
 	public void loadPrefs() {
+		Config.loadConfig();
 	}
 
 	public boolean savePrefs() {
-		return false;
+		Config.saveConfig();
+		return true;
 	}
 
 	public void initAPIAs() {
-		// TODO push WebAPIA
 	}
 
 	public void exit() {
-		Runtime.getRuntime().exit(0);
+		
 	}
 
 	public void repaint() {
@@ -32,6 +75,17 @@ public class NJTAID {
 	}
 
 	public void showNotification(String title, String text, int type, Object prev) {
-		//TODO show a modal window
+	}
+
+	public static String getConfigPath() {
+		return null;
+	}
+
+	public static String getTitle() {
+		return "NJTAID prototype";
+	}
+
+	public void queueRun(Runnable runnable) {
+		
 	}
 }
