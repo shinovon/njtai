@@ -2,11 +2,19 @@ package njtai.d;
 
 public class Task implements Runnable {
 	
-	public void run() {
-		
+	private Runnable runnable;
+	protected Task() {
 	}
 	
-	public void close() {
+	public Task(Runnable runnable) {
+		this.runnable = runnable;
+	}
+
+	public void run() {
+		runnable.run();
+	}
+	
+	public void stop() {
 		
 	}
 

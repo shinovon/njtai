@@ -5,35 +5,42 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class Config {
+import njtai.NJTAI;
 
-	private static Properties properties = new Properties();
+public class Config extends Properties {
+
+	private static Config inst = new Config();
 	
-	static {
-		init();
+	private Config() {
+		
 	}
 	
 	public static void init() {
 		loadDefaults();
 		loadConfig();
 		saveConfig();
+		NJTAI.loadCovers = false;
 	}
 	
 	public static void loadDefaults() {
-		try {
-			properties.load(new FileInputStream(NJTAID.getConfigPath()));
-		} catch (IOException e) {
-		}
+		set("itemWidth", 240);
+		set("itemHeight", 320);
+		set("coverWidth", 180);
+		set("coverHeight", 240);
+		set("proxy", "https://");
 	}
 
 	public static void saveConfig() {
 		try {
-			properties.save(new FileOutputStream(NJTAID.getConfigPath()), "NJTAID Configuration file");
+			inst.save(new FileOutputStream(NJTAID.getConfigPath()), "NJTAID Configuration file");
 		} catch (IOException e) {}
 	}
 	
 	public static void loadConfig() {
-		
+		try {
+			inst.load(new FileInputStream(NJTAID.getConfigPath()));
+		} catch (IOException e) {
+		}
 	}
 
 	public static void set(String key, boolean value) {
@@ -49,32 +56,37 @@ public class Config {
 	}
 
 	public static void set(String key, String value) {
-		properties.setProperty(key, value);
+		inst.setProperty(key, value);
 	}
 
 	public static boolean getBoolean(String key) {
-		if(properties.containsKey(key)) return Boolean.parseBoolean((String) properties.get(key));
+		if(inst.containsKey(key)) return Boolean.parseBoolean((String) inst.get(key));
 		else return false;
 	}
 
 	public static int getInt(String key) {
-		if(properties.containsKey(key)) return Integer.parseInt((String) properties.get(key));
+		if(inst.containsKey(key)) return Integer.parseInt((String) inst.get(key));
 		else return 0;
 	}
 
 	public static long getLong(String key) {
-		if(properties.containsKey(key)) return Long.parseLong((String) properties.get(key));
+		if(inst.containsKey(key)) return Long.parseLong((String) inst.get(key));
 		else return 0;
 	}
 
-	public static String get(String key) {
-		if(properties.containsKey(key)) return (String) properties.get(key);
+	public static String getString(String key) {
+		if(inst.containsKey(key)) return (String) inst.get(key);
 		else return null;
 	}
 
 	public static boolean contains(String key) {
-		return properties.containsKey(key);
+		return inst.containsKey(key);
 	}
-
-
+	
+	@Override
+	public Object setProperty(String key, String value) {
+		if("proxy".equals(key)) NJTAI.proxy = value;
+		return super.setProperty(key, value);
+	}
+	
 }
