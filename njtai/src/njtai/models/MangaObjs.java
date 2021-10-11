@@ -58,10 +58,10 @@ public class MangaObjs implements Enumeration {
 		return list[next - 1];
 	}
 
-	static final String POPULAR_DIV = "<div class=\"container index-container index-popular\">";
-	static final String NEW_DIV = "<div class=\"container index-container\">";
-	static final String PAGIN_SEC = "<section class=\"pagination\">";
-	static final String SEARCH_Q = "/search/?q=";
+	public static final String POPULAR_DIV = "<div class=\"container index-container index-popular\">";
+	public static final String NEW_DIV = "<div class=\"container index-container\">";
+	public static final String PAGIN_SEC = "<section class=\"pagination\">";
+	public static final String SEARCH_Q = "/search/?q=";
 
 	public static MangaObjs getPopularList() throws IOException, IllegalAccessException {
 		String sec = StringUtil.range(NJTAI.getHP(), POPULAR_DIV, NEW_DIV, false);
