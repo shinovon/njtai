@@ -146,7 +146,7 @@ public final class MMenu extends List implements CommandListener {
 			return;
 		case 6:
 			Alert a1 = new Alert(NJTAI.rus ? "О программе" : "About",
-					"NJTAI v" + NJTAIM.ver() + "\nDeveloper: Feodor0090\nIcon and proxy by Shinovon", null,
+					"NJTAI v" + NJTAIM.ver() + "\nDevelopers: Feodor0090, Shinovon\nIcon and proxy by Shinovon\nMore info at github.com/Feodor0090/njtai", null,
 					AlertType.INFO);
 			a1.setTimeout(Alert.FOREVER);
 			NJTAIM.setScr(a1);
@@ -271,9 +271,14 @@ public final class MMenu extends List implements CommandListener {
 			f.addCommand(m.backCmd);
 			String[] items = NJTAIM.getStrings("tips");
 			for (int i = 0; i < items.length / 2; i++) {
-				StringItem s = new StringItem(null, "["+items[i * 2]+"] "+items[i * 2 + 1]+"\n");
-				s.setFont(Font.getFont(0, 0, 8));
-				f.append(s);
+				if (NJTAIM.isS60v3()) {
+					f.append(new StringItem(null, items[i * 2 + 1]));
+					f.append(new StringItem(items[i * 2], null));
+				} else {
+					StringItem s = new StringItem(null, "[" + items[i * 2] + "] " + items[i * 2 + 1] + "\n");
+					s.setFont(Font.getFont(0, 0, 8));
+					f.append(s);
+				}
 			}
 			return f;
 		} catch (Exception e) {
