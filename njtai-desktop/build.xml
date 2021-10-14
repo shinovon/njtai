@@ -8,9 +8,28 @@
     <property name="dir.project" value="${dir.buildfile}"/>
     <target name="create_run_jar">
         <jar destfile="${dir.project}/njtai_universal.jar" filesetmanifest="mergewithoutmain">
-            <fileset dir="${dir.project}/bin"/>
+            <manifest>
+            	<attribute name="Nokia-MIDlet-Category" value="Internet"/>
+            	<attribute name="MIDlet-Version" value="1.1.45"/>
+            	<attribute name="MIDlet-Info-URL" value="https://github.com/Feodor0090/njtai"/>
+            	<attribute name="Nokia-MIDlet-On-Screen-Keypad" value="no"/>
+            	<attribute name="MIDlet-Icon" value="/njtai.png"/>
+            	<attribute name="Background" value="False"/>
+            	<attribute name="MicroEdition-Configuration" value="CLDC-1.1"/>
+            	<attribute name="MIDlet-Jar-URL" value="njtai.jar"/>
+            	<attribute name="MIDlet-Name" value="NJTAI"/>
+            	<attribute name="MIDlet-1" value="NJTAI,/njtai.png,njtai.m.NJTAIM"/>
+            	<attribute name="MIDlet-Description" value="Simple client to access nhentai.net from MIDP2.0+ devices."/>
+            	<attribute name="MIDlet-Permissions-Opt" value="javax.microedition.io.Connector.file.write,javax.microedition.io.Connector.file.read"/>
+            	<attribute name="MIDlet-Permissions" value="javax.microedition.io.Connector.http,javax.microedition.io.Connector.https"/>
+            	<attribute name="MicroEdition-Profile" value="MIDP-2.0"/>
+            	<attribute name="MIDlet-Vendor" value="Feodor0090"/>
+            	<attribute name="Nokia-Scalable-Icon-MIDlet-1" value="/njtai.svg"/>
+                <attribute name="Main-Class" value="njtai.d.Main"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
             <fileset dir="${dir.workspace}/njtai/bin"/>
-            <zipfileset includes="META-INF/*.SF" src="${dir.workspace}/njtai/deployed/"/>
+            <fileset dir="${dir.project}/bin"/>
         </jar>
     </target>
 </project>

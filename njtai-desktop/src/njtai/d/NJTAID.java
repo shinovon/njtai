@@ -152,34 +152,44 @@ public class NJTAID implements IPlatform, Runnable {
 			frame.setStatus(str);
 		}
 	}
+	
+	public void setStatus(String str, int v, int max) {
+		if(loadingfrm.isVisible()) {
+			loadingfrm.setText(str + " ("+v+"/"+max+")");
+		}
+		if(frame != null && frame.isVisible()) {
+			frame.setStatus(str);
+			frame.setStatus(v, max);
+		}
+	}
 
 	public void loadItems() throws IOException, IllegalAccessException {
-		setStatus("Соединение (0/5)");
+		setStatus("Соединение", 0, 5);
 		String hp = NJTAI.getHP();
-		setStatus("Парс популярных (1/5)");
+		setStatus("Парс популярных", 1, 5);
 		String popular = StringUtil.range(hp, MangaObjs.POPULAR_DIV, MangaObjs.NEW_DIV, false);
-		setStatus("Парс популярных (2/5)");
+		setStatus("Парс популярных", 2, 5);
 		popularObjs = new MangaObjs(popular);
-		setStatus("Парс последних (3/5)");
+		setStatus("Парс последних", 3, 5);
 		String latest = StringUtil.range(hp, MangaObjs.NEW_DIV, MangaObjs.PAGIN_SEC, false);
-		setStatus("Парс последних (4/5)");
+		setStatus("Парс последних", 4, 5);
 		latestObjs = new MangaObjs(latest);
-		setStatus("Готово (5/5)");
+		setStatus("Готово", 5, 5);
 	}
 
 	public void refreshItems() {
-		setStatus("Соединение (0/5)");
+		setStatus("Соединение", 0, 5);
 		try {
 			String hp = NJTAI.getHP();
-			setStatus("Парс популярных (1/5)");
+			setStatus("Парс популярных", 1, 5);
 			String popular = StringUtil.range(hp, MangaObjs.POPULAR_DIV, MangaObjs.NEW_DIV, false);
-			setStatus("Парс популярных (2/5)");
+			setStatus("Парс популярных", 2, 5);
 			popularObjs = new MangaObjs(popular);
-			setStatus("Парс последних (3/5)");
+			setStatus("Парс последних", 3, 5);
 			String latest = StringUtil.range(hp, MangaObjs.NEW_DIV, MangaObjs.PAGIN_SEC, false);
-			setStatus("Парс последних (4/5)");
+			setStatus("Парс последних", 4, 5);
 			latestObjs = new MangaObjs(latest);
-			setStatus("Готово (5/5)");
+			setStatus("Готово", 5, 5);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

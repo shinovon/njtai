@@ -58,6 +58,7 @@ public class MainFrm extends JFrame {
 			repaint();
 		}
 	};
+	private JProgressBar progressBar;
 
 	/**
 	 * Create the frame.
@@ -115,6 +116,7 @@ public class MainFrm extends JFrame {
 		JMenuItem refreshMenu = new JMenuItem("Refresh");
 		refreshMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				refreshAll();
 			}
 		});
 		refreshMenu.setMnemonic(KeyEvent.VK_F5);
@@ -262,7 +264,7 @@ public class MainFrm extends JFrame {
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
-		JProgressBar progressBar = new JProgressBar();
+		progressBar = new JProgressBar();
 		panel_1.add(progressBar);
 		
 		statusLabel = new JLabel(" ");
@@ -323,6 +325,8 @@ public class MainFrm extends JFrame {
 				NJTAID.inst.refreshItems();
 				addPopularItems();
 				addLatestItems();
+				setStatus("Готово");
+				setStatus(0, 100);
 			}
 		});
 	}
@@ -366,6 +370,11 @@ public class MainFrm extends JFrame {
         popularItems.revalidate();
 		homeScrollPane.revalidate();
 		repaint();
+	}
+
+	public void setStatus(int v, int max) {
+		progressBar.setMaximum(max);
+		progressBar.setValue(v);
 	}
 	
 	
